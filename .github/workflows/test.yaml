@@ -1,0 +1,24 @@
+name: Build & Deploy to P.sh Dev
+on: push
+
+jobs:
+  pre:
+    runs-on: ubuntu-latest
+    outputs:
+      bundles: ${{ steps.set-bundles.outputs.bundles }}
+    steps:
+
+      - id: set-bundles
+        run: echo "::set-output name=bundles::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
+
+  # uses dependency tree to run package installation
+  patch:
+    runs-on: ubuntu-latest
+    needs: pre
+    strategy:
+      matrix:
+        bundle: ${{fromJSON(needs.pre.outputs.bundles)}}
+    steps:
+      - run: |
+          echo $bundle
+
