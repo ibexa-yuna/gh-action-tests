@@ -18,7 +18,8 @@ jobs:
         run: |
           echo "::set-output name=name::[PR-${PR}] ezsystems/ezplatform-admin-ui"
 
-      - run: |
+      - name: Output project name
+        run: |
           echo "Project name is \"${{ steps.projectGen.outputs.name }}\""
 
   # uses dependency tree to run package installation
