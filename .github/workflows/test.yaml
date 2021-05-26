@@ -10,6 +10,16 @@ jobs:
 
       - id: set-bundles
         run: echo "::set-output name=bundles::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
+        
+      - name: Generate P.sh project name
+        env:
+          PR: 4
+        id: projectGen
+        run: |
+          echo "::set-output name=name::[PR-${PR}] ezsystems/ezplatform-admin-ui"
+
+      - run: |
+          echo "Project name is \"echo ${{ steps.projectGen.outputs.name }}\""
 
   # uses dependency tree to run package installation
   patch:
