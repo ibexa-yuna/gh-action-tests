@@ -19,7 +19,7 @@ jobs:
           echo "::set-output name=name::[PR-${PR}] ezsystems/ezplatform-admin-ui"
 
       - run: |
-          echo "Project name is \"echo ${{ steps.projectGen.outputs.name }}\""
+          echo "Project name is \"${{ steps.projectGen.outputs.name }}\""
 
   # uses dependency tree to run package installation
   patch:
